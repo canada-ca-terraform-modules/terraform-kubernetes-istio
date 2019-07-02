@@ -48,7 +48,7 @@ resource "helm_release" "istio" {
   timeout = 1200
 
   values = [
-    "${file("${path.module}/templates/istio.yml")}",
+    "${file("${path.module}/values/istio.yml")}",
   ]
 }
 

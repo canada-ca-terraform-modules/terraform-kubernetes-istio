@@ -30,7 +30,7 @@ resource "null_resource" "istio-init-wait" {
 resource "helm_release" "istio-init" {
   depends_on = ["null_resource.dependency_getter"]
   name = "istio-init"
-  repository = "istio"
+  repository = "${var.helm_repository}"
   chart = "istio-init"
   version = "${var.chart_version}"
   namespace = "${var.helm_namespace}"
@@ -41,7 +41,7 @@ resource "helm_release" "istio-init" {
 resource "helm_release" "istio" {
   depends_on = ["null_resource.istio-init-wait", "null_resource.dependency_getter"]
   name = "istio"
-  repository = "istio"
+  repository = "${var.helm_repository}"
   chart = "istio"
   version = "${var.chart_version}"
   namespace = "${var.helm_namespace}"

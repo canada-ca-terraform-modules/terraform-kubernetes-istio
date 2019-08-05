@@ -56,6 +56,9 @@ resource "null_resource" "istio-dr" {
 
   provisioner "local-exec" {
     command = "kubectl -n ${var.helm_namespace} apply -f ${"${path.module}/config/istio/dr/grafana.yml"}"
+  }
+
+  provisioner "local-exec" {
     command = "kubectl -n ${var.helm_namespace} apply -f ${"${path.module}/config/istio/dr/kiali.yml"}"
   }
 

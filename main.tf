@@ -52,6 +52,18 @@ resource "helm_release" "istio" {
   ]
 }
 
+resource "null_resource" "istio-dr" {
+
+  provisioner "local-exec" {
+    command = "kubectl -n ${var.helm_namespace} apply -f ${"${path.module}/config/istio/dr/grafana.yml"}"
+    command = "kubectl -n ${var.helm_namespace} apply -f ${"${path.module}/config/istio/dr/kiali.yml"}"
+  }
+
+  depends_on = [
+    "null_resource.dependency_getter",
+  ]
+}
+
 # Part of a hack for module-to-module dependencies.
 # https://github.com/hashicorp/terraform/issues/1178#issuecomment-449158607
 resource "null_resource" "dependency_setter" {
@@ -61,5 +73,6 @@ resource "null_resource" "dependency_setter" {
   depends_on = [
     "helm_release.istio",
     "helm_release.istio-init",
+    "null_resource.istio-dr",
   ]
 }

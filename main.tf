@@ -63,7 +63,7 @@ resource "null_resource" "istio-dr" {
   }
 
   depends_on = [
-    "null_resource.istio-init",
+    "null_resource.istio-init-wait",
     "null_resource.dependency_getter",
   ]
 }

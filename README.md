@@ -1,8 +1,8 @@
-# Terraform Kubernetes AAD Pod Identity
+# Terraform Kubernetes Istio
 
 ## Introduction
 
-This module deploys and configures Istio on Kubernetes into a Kubernetes Cluster.
+This module deploys and configures Istio inside a Kubernetes Cluster.
 
 ## Security Controls
 

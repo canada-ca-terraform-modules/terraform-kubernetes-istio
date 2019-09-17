@@ -22,6 +22,10 @@ resource "null_resource" "istio-init-wait" {
     command = "kubectl -n ${var.helm_namespace} wait --for condition=complete job/istio-init-crd-11 --timeout=30s"
   }
 
+  provisioner "local-exec" {
+    command = "kubectl -n ${var.helm_namespace} wait --for condition=complete job/istio-init-crd-12 --timeout=30s"
+  }
+
   triggers = {
     wait_for = "${helm_release.istio-init.id}"
   }

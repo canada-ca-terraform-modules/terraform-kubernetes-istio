@@ -72,6 +72,18 @@ resource "null_resource" "istio-dr" {
   ]
 }
 
+resource "kubernetes_secret" "kiali" {
+  metadata {
+    name = "kiali"
+    namespace = "${var.helm_namespace}"
+  }
+
+  data = {
+    username = "${var.kiali_username}"
+    passphrase = "${var.kiali_password}"
+  }
+}
+
 # Part of a hack for module-to-module dependencies.
 # https://github.com/hashicorp/terraform/issues/1178#issuecomment-449158607
 resource "null_resource" "dependency_setter" {

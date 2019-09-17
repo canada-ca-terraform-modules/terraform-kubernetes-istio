@@ -13,3 +13,11 @@ variable "values" {
   default = ""
   type = "string"
 }
+
+variable "kiali_username" {
+  default = "admin"
+}
+
+variable "kiali_password" {
+  default = "admin"
+}

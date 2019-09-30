@@ -15,15 +15,15 @@ resource "null_resource" "istio-init-wait" {
   depends_on = ["null_resource.dependency_getter"]
 
   provisioner "local-exec" {
-    command = "kubectl -n ${var.helm_namespace} wait --for condition=complete job/istio-init-crd-10 --timeout=30s"
+    command = "kubectl -n ${var.helm_namespace} wait --for condition=complete job/istio-init-crd-10-${var.chart_version} --timeout=30s"
   }
 
   provisioner "local-exec" {
-    command = "kubectl -n ${var.helm_namespace} wait --for condition=complete job/istio-init-crd-11 --timeout=30s"
+    command = "kubectl -n ${var.helm_namespace} wait --for condition=complete job/istio-init-crd-11-${var.chart_version} --timeout=30s"
   }
 
   provisioner "local-exec" {
-    command = "kubectl -n ${var.helm_namespace} wait --for condition=complete job/istio-init-crd-12 --timeout=30s"
+    command = "kubectl -n ${var.helm_namespace} wait --for condition=complete job/istio-init-crd-12-${var.chart_version} --timeout=30s"
   }
 
   triggers = {

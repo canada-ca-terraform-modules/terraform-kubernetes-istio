@@ -9,6 +9,12 @@ resource "null_resource" "dependency_getter" {
   triggers = {
     my_dependencies = "${join(",", var.dependencies)}"
   }
+
+  lifecycle {
+    ignore_changes = [
+      triggers["my_dependencies"],
+    ]
+  }
 }
 
 resource "null_resource" "istio-init-wait" {
@@ -33,23 +39,23 @@ resource "null_resource" "istio-init-wait" {
 
 resource "helm_release" "istio-init" {
   depends_on = ["null_resource.dependency_getter"]
-  name = "istio-init"
+  name       = "istio-init"
   repository = "${var.helm_repository}"
-  chart = "istio-init"
-  version = "${var.chart_version}"
-  namespace = "${var.helm_namespace}"
-  timeout = 1200
-  wait = true
+  chart      = "istio-init"
+  version    = "${var.chart_version}"
+  namespace  = "${var.helm_namespace}"
+  timeout    = 1200
+  wait       = true
 }
 
 resource "helm_release" "istio" {
   depends_on = ["null_resource.istio-init-wait", "null_resource.dependency_getter"]
-  name = "istio"
+  name       = "istio"
   repository = "${var.helm_repository}"
-  chart = "istio"
-  version = "${var.chart_version}"
-  namespace = "${var.helm_namespace}"
-  timeout = 1200
+  chart      = "istio"
+  version    = "${var.chart_version}"
+  namespace  = "${var.helm_namespace}"
+  timeout    = 1200
 
   values = [
     "${var.values}",
@@ -74,12 +80,12 @@ resource "null_resource" "istio-dr" {
 
 resource "kubernetes_secret" "kiali" {
   metadata {
-    name = "kiali"
+    name      = "kiali"
     namespace = "${var.helm_namespace}"
   }
 
   data = {
-    username = "${var.kiali_username}"
+    username   = "${var.kiali_username}"
     passphrase = "${var.kiali_password}"
   }
 }

@@ -11,7 +11,7 @@ variable "dependencies" {
 
 variable "values" {
   default = ""
-  type = "string"
+  type    = "string"
 }
 
 variable "kiali_username" {

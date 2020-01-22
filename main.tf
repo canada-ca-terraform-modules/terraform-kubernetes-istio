@@ -29,14 +29,6 @@ resource "null_resource" "istio-init-wait" {
   }
 
   provisioner "local-exec" {
-    command = "kubectl -n ${var.helm_namespace} wait --for condition=complete job/istio-init-crd-12-${var.chart_version} --timeout=30s"
-  }
-
-  provisioner "local-exec" {
-    command = "kubectl -n ${var.helm_namespace} wait --for condition=complete job/istio-init-crd-13-${var.chart_version} --timeout=30s"
-  }
-
-  provisioner "local-exec" {
     command = "kubectl -n ${var.helm_namespace} wait --for condition=complete job/istio-init-crd-14-${var.chart_version} --timeout=30s"
   }
 

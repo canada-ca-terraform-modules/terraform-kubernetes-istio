@@ -29,7 +29,6 @@ module "helm_istio" {
     "${module.namespace_istio_system.depended_on}",
   ]
 
-  helm_service_account = "tiller"
   helm_namespace = "istio-system"
   helm_repository = "istio"
 

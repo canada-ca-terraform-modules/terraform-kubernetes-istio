@@ -62,6 +62,22 @@ resource "helm_release" "istio" {
   ]
 }
 
+resource "helm_release" "istio_cni" {
+  count      = "${var.enable_cni ? 1 : 0}"
+  depends_on = ["null_resource.istio-init-wait", "null_resource.dependency_getter"]
+  name       = "istio-cni"
+  repository = "${var.helm_repository}"
+  chart      = "istio-cni"
+  version    = "${var.chart_version}"
+  # Istio CNI must run in kube-system due to https://github.com/kubernetes/kubernetes/issues/60596
+  namespace = "kube-system"
+  timeout   = 1200
+
+  values = [
+    "${var.cni_values}",
+  ]
+}
+
 resource "null_resource" "istio-dr" {
 
   provisioner "local-exec" {

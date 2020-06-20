@@ -4,6 +4,15 @@ variable "helm_repository" {}
 
 variable "chart_version" {}
 
+variable "enable_cni" {
+  type    = bool
+  default = false
+}
+
+variable "cni_values" {
+  default = ""
+}
+
 variable "dependencies" {
   type = "list"
 }

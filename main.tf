@@ -104,6 +104,8 @@ resource "kubernetes_secret" "kiali" {
     username   = "${var.kiali_username}"
     passphrase = "${var.kiali_password}"
   }
+  
+  depends_on = ["null_resource.dependency_getter"]
 }
 
 # Part of a hack for module-to-module dependencies.

@@ -61,4 +61,4 @@ EOF
 | -------- | ------- | ------------------------------------------------- |
 | 20200525 | v1.0.0  | 1st release                                       |
 | 20200602 | v1.0.1  | Update to module to allow for installation of CNI |
-| 20200620 | v2.0.0  | Update to module to use Helm3                     |
+| 20200622 | v2.0.0  | Update to module to use Helm3                     |

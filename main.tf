@@ -64,7 +64,7 @@ resource "helm_release" "istio" {
 
 resource "helm_release" "istio_cni" {
   count      = "${var.enable_cni ? 1 : 0}"
-  depends_on = ["null_resource.istio-init-wait", "null_resource.dependency_getter"]
+  depends_on = ["null_resource.istio-init-wait", "null_resource.dependency_getter", "helm_release.istio"]
   name       = "istio-cni"
   repository = "${var.helm_repository}"
   chart      = "istio-cni"
@@ -104,6 +104,8 @@ resource "kubernetes_secret" "kiali" {
     username   = "${var.kiali_username}"
     passphrase = "${var.kiali_password}"
   }
+  
+  depends_on = ["null_resource.dependency_getter"]
 }
 
 # Part of a hack for module-to-module dependencies.
